@@ -1,13 +1,15 @@
 {
   "include": [
-    "src/**/*"
+    "src/**/*",
+    "tests/**/*"
   ],
   "compilerOptions": {
     "baseUrl": ".",
     "outDir": "dist",
-    "rootDir": "src",
+    "rootDir": ".",
     "target": "ES2019",
     "module": "CommonJS",
+    "esModuleInterop": true,
     "strict": true,
     "exactOptionalPropertyTypes": true,
     "declaration": true,
