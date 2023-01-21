@@ -1,0 +1,1 @@
+export declare const getTestDatabase: (args?: null | undefined, options?: import("ava-postgres").GetTestPostgresDatabaseOptions | undefined) => Promise<import("ava-postgres").GetTestPostgresDatabaseResult>;

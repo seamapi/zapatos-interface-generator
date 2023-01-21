@@ -1,5 +1,5 @@
 import test from "ava";
-import { generate } from "../src/generate";
+import { generate } from "../generate";
 import mockFS from "mock-fs";
 import * as fs from "fs";
 import { getTestDatabase } from "./fixtures/getTestDatabase";

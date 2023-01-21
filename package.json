@@ -1,6 +1,6 @@
 {
   "name": "zapatos-interface-generator",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Zero-Abstraction Postgres for TypeScript",
   "repository": {
     "type": "git",
@@ -11,7 +11,7 @@
   },
   "scripts": {
     "lint": "eslint --ext .ts .",
-    "build": "npx tsc && npx gen-esm-wrapper db db.mjs && npx gen-esm-wrapper generate generate.mjs",
+    "build": "npx tsc && rm -rf ./dist/tests && npx gen-esm-wrapper db db.mjs && npx gen-esm-wrapper generate generate.mjs",
     "version": "npm run lint && npm run build",
     "postversion": "git push && git push --tags && npm publish",
     "postinstall": "node -e \"console.warn('>>> \\u001b[1;33mZapatos was installed or upgraded. Please (re-)run \\u001b[1;32mnpx zapatos\\u001b[1;33m.\\u001b[0m <<<\\u000a')\"",
