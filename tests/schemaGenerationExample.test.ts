@@ -10,6 +10,9 @@ test("simple generation example", async (t) => {
   await pool.query(
     "CREATE TABLE foo (id serial PRIMARY KEY, name text NOT NULL)"
   );
+  await pool.query(
+    "CREATE TABLE bar (bar_id uuid PRIMARY KEY, num integer)"
+  );
 
   mockFS({});
   await generate({
@@ -23,5 +26,6 @@ test("simple generation example", async (t) => {
 
   const schema = fs.readFileSync("/out/zapatos/schema.d.ts", "utf8");
 
+  mockFS.restore();
   t.snapshot(schema);
 });

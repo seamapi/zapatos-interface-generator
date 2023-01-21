@@ -1,11 +1,10 @@
 {
-  "name": "zapatos",
-  "version": "6.1.1",
+  "name": "zapatos-interface-generator",
+  "version": "0.1.0",
   "description": "Zero-Abstraction Postgres for TypeScript",
-  "homepage": "https://jawj.github.io/zapatos/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jawj/zapatos"
+    "url": "https://github.com/seamapi/zapatos-interface-generator"
   },
   "bin": {
     "zapatos": "dist/generate/cli.js"
