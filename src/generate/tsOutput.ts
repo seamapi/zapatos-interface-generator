@@ -32,9 +32,7 @@ export interface schemaVersionCanary extends db.SchemaVersionCanary { version: $
 `;
 
 const declareModule = (module: string, declarations: string) => `
-declare module '${module}' {
-${declarations.replace(/^(?=[ \t]*\S)/gm, '  ')}
-}
+${declarations}
 `;
 
 const customTypeHeader = `/*
@@ -91,7 +89,7 @@ export const tsForConfig = async (config: CompleteConfig, debug: (s: string) => 
           schemaIsUnprefixed = schema === config.unprefixedSchema,
           none = '/* (none) */',
           schemaDef = `/* === schema: ${schema} === */\n` +
-            (schemaIsUnprefixed ? '' : `\nexport namespace ${schema} {\n`) +
+            (schemaIsUnprefixed ? '' : `\nexport interface ${schema} {\n`) +
             indentAll(schemaIsUnprefixed ? 0 : 2,
               `\n/* --- enums --- */\n` +
               (enumTypesForEnumData(enums) || none) +
@@ -99,7 +97,7 @@ export const tsForConfig = async (config: CompleteConfig, debug: (s: string) => 
               (tableDefs.join('\n') || none) +
               `\n\n/* --- aggregate types --- */\n` +
               (schemaIsUnprefixed ?
-                `\nexport namespace ${schema} {` + (indentAll(2, crossTableTypesForTables(tables) || none)) + '\n}\n' :
+                `\nexport interface Schema_${schema} {` + (indentAll(2, crossTableTypesForTables(tables) || none)) + '\n}\n' :
                 (crossTableTypesForTables(tables) || none))
             ) + '\n' +
             (schemaIsUnprefixed ? '' : `}\n`);

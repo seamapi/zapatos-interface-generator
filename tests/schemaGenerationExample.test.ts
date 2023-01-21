@@ -23,6 +23,5 @@ test("simple generation example", async (t) => {
 
   const schema = fs.readFileSync("/out/zapatos/schema.d.ts", "utf8");
 
-  t.truthy(schema.includes("export namespace foo {"));
-  t.truthy(schema.includes("export type Table = 'foo'"));
+  t.snapshot(schema);
 });
