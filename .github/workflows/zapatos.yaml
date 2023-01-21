@@ -6,7 +6,7 @@ jobs:
   ci:
     runs-on: ubuntu-latest
     container:
-      image: node:14.17.0-buster-slim
+      image: node:18
     timeout-minutes: 3
 
     steps:
