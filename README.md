@@ -17,7 +17,47 @@ npm install --save-dev zapatos-interface-generator
 Use zapatos as normal and generate a `schema.d.ts` file. When you look at the
 schema file, it will be a bit different, there aren't any global declarations,
 so you can generate multiple of these files or bundle them into a package
-without anything going wrong.
+without anything going wrong
+
+### Usage with Kysely
+
+Use your generated zapatos bindings to create a Kysely type that works
+for your database:
+
+```ts
+import type { ColumnType, Kysely } from "kysely"
+import * as schema from "./zapatos/schema"
+import { type Primitive } from "type-fest"
+import { type JSONValue } from "zapatos/db"
+
+type ZapatosInsertableTypeToPrimitive<T> = Exclude<
+  Extract<T, Primitive | Date | JSONValue>,
+  symbol
+>
+
+type ZapatosTableNameToKyselySchema<T extends schema.Table> = {
+  [K in keyof schema.SelectableForTable<T>]: ColumnType<
+    ZapatosInsertableTypeToPrimitive<schema.SelectableForTable<T>[K]>,
+    K extends keyof schema.InsertableForTable<T>
+      ? ZapatosInsertableTypeToPrimitive<schema.InsertableForTable<T>[K]>
+      : never,
+    K extends keyof schema.UpdatableForTable<T>
+      ? ZapatosInsertableTypeToPrimitive<schema.UpdatableForTable<T>[K]>
+      : never
+  >
+}
+
+export type MyKyselySchema = {
+  readonly [T in schema.Table]: ZapatosTableNameToKyselySchema<T>
+}
+
+export type MyKysely = Kysely<AirbyteGithubSchema>
+```
+
+(maybe we should generate this file too)
+
+
+### Example schema.d.ts file
 
 ```typescript
 export interface foo {
